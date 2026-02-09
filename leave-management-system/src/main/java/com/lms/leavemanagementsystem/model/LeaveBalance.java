@@ -26,5 +26,6 @@ public class LeaveBalance {
     @Column(nullable = false)
     private Integer remainingDays;
 
+    @Column(name = "balance_year")  // FIX: Renamed column to avoid reserved keyword
     private Integer year;
 }
