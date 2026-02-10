@@ -32,9 +32,9 @@ public class EmployeeController {
     private LeaveTypeService leaveTypeService;
 
     // Employee dashboard
+    // Employee dashboard
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
-        // Get logged-in employee from session
         Long employeeId = (Long) session.getAttribute("userId");
 
         if (employeeId == null) {
@@ -42,18 +42,12 @@ public class EmployeeController {
         }
 
         Employee employee = employeeService.getEmployeeById(employeeId).orElse(null);
-
         if (employee == null) {
             return "redirect:/login";
         }
 
-        // Get leave balances
         List<LeaveBalance> balances = leaveBalanceService.getBalancesByEmployee(employee);
-
-        // Get leave applications
         List<LeaveApplication> applications = leaveApplicationService.getApplicationsByEmployee(employee);
-
-        // Get all leave types for dropdown
         List<LeaveType> leaveTypes = leaveTypeService.getAllLeaveTypes();
 
         model.addAttribute("employee", employee);
@@ -61,7 +55,7 @@ public class EmployeeController {
         model.addAttribute("applications", applications);
         model.addAttribute("leaveTypes", leaveTypes);
 
-        return "employee-dashboard";
+     return "employee/employee-dashboard";
     }
 
     // Submit leave application
@@ -93,16 +87,17 @@ public class EmployeeController {
         }
 
         Employee employee = employeeService.getEmployeeById(employeeId).orElse(null);
-
         if (employee == null) {
             return "redirect:/login";
         }
 
-        List<LeaveApplication> applications = leaveApplicationService.getApplicationsByEmployee(employee);
+        List<LeaveApplication> applications =
+                leaveApplicationService.getApplicationsByEmployee(employee);
 
         model.addAttribute("employee", employee);
         model.addAttribute("applications", applications);
 
-        return "leave-status";
+     return "employee/leave-status";
     }
+
 }

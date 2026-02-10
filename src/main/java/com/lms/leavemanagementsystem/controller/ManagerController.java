@@ -31,19 +31,19 @@ public class ManagerController {
         }
 
         Manager manager = managerService.getManagerById(managerId).orElse(null);
-
         if (manager == null) {
             return "redirect:/login";
         }
 
-        // Get pending leave requests
-        List<LeaveApplication> pendingRequests = leaveApplicationService.getPendingApplications();
+        List<LeaveApplication> pendingRequests =
+                leaveApplicationService.getPendingApplications();
 
         model.addAttribute("manager", manager);
         model.addAttribute("pendingRequests", pendingRequests);
 
-        return "manager-dashboard";
+      return "manager/manager-dashboard";
     }
+
 
     // Approve leave request
     @PostMapping("/approve/{id}")
