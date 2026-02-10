@@ -2,14 +2,16 @@ package com.lms.leavemanagementsystem.controller;
 
 import com.lms.leavemanagementsystem.model.Employee;
 import com.lms.leavemanagementsystem.model.Manager;
-import com.lms.leavemanagementsystem.model.User;
 import com.lms.leavemanagementsystem.service.EmployeeService;
 import com.lms.leavemanagementsystem.service.ManagerService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class AuthController {
@@ -20,38 +22,36 @@ public class AuthController {
     @Autowired
     private ManagerService managerService;
 
-    // Handle login form submission
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
+
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String password,
                         @RequestParam String role,
-                        HttpSession session,
-                        Model model) {
+                        HttpSession session) {
 
-        // Simple authentication - check role and email
         if ("employee".equals(role)) {
-            Employee employee = employeeService.getEmployeeByEmail(email).orElse(null);
-
-            if (employee != null && employee.getPassword().equals(password)) {
-                session.setAttribute("userId", employee.getUserId());
+            Optional<Employee> employee = employeeService.getEmployeeByEmail(email);
+            if (employee.isPresent() && employee.get().getPassword().equals(password)) {
+                session.setAttribute("userId", employee.get().getUserId());
                 session.setAttribute("role", "employee");
                 return "redirect:/employee/dashboard";
             }
         } else if ("manager".equals(role)) {
-            Manager manager = managerService.getManagerByEmail(email).orElse(null);
-
-            if (manager != null && manager.getPassword().equals(password)) {
-                session.setAttribute("userId", manager.getUserId());
+            Optional<Manager> manager = managerService.getManagerByEmail(email);
+            if (manager.isPresent() && manager.get().getPassword().equals(password)) {
+                session.setAttribute("userId", manager.get().getUserId());
                 session.setAttribute("role", "manager");
                 return "redirect:/manager/dashboard";
             }
         }
 
-        model.addAttribute("error", "Invalid credentials");
-        return "login";
+        return "redirect:/login?error";
     }
 
-    // Logout
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
