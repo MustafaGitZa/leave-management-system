@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="header">
+    <h1>Employee Dashboard</h1>
+    <a href="/logout" class="logout-btn">Logout</a>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Leave Balances</h2>
+
+        <div class="balance-grid">
+            <div class="balance-box balance-annual">
+                <div class="balance-info">
+                    <h3>Annual Leave</h3>
+                    <div class="balance-days">15 <span>days remaining</span></div>
+                </div>
+            </div>
+
+            <div class="balance-box balance-sick">
+                <div class="balance-info">
+                    <h3>Sick Leave</h3>
+                    <div class="balance-days">10 <span>days remaining</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="/employee/apply" class="btn btn-primary">Apply for Leave</a>
+
+</div>
+
+</body>
+</html>

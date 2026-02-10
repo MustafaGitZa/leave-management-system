@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Leave Requests</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="header">
+    <h1>Leave Requests</h1>
+    <a href="/manager/dashboard" class="btn btn-danger">Back</a>
+</header>
+
+<div class="container">
+    <div class="requests-list">
+
+        <div class="request-item">
+            <div class="request-employee">
+                <div class="employee-avatar">E</div>
+                <div class="employee-info">
+                    <h4>John Doe</h4>
+                    <p>Annual Leave</p>
+                </div>
+            </div>
+
+            <div class="request-actions">
+                <button class="btn btn-success">Approve</button>
+                <button class="btn btn-danger">Reject</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

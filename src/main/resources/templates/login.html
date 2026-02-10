@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>LMS | Login</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h2>Login</h2>
+<div class="login-container">
+    <div class="login-card">
+        <h1>Leave Management System</h1>
 
-<form th:action="@{/login}" method="post">
-    <label>Email</label>
-    <input type="email" name="email" required />
+        <div th:if="${param.error}" class="error-message">
+            Invalid email, password or role
+        </div>
 
-    <label>Password</label>
-    <input type="password" name="password" required />
+        <form th:action="@{/login}" method="post">
 
-    <label>Role</label>
-    <select name="role">
-        <option value="employee">Employee</option>
-        <option value="manager">Manager</option>
-    </select>
+            <label>Email</label>
+            <input type="email" name="email" required>
 
-    <button type="submit">Login</button>
-</form>
+            <label>Password</label>
+            <input type="password" name="password" required>
 
-<p th:if="${param.error}">Invalid login details</p>
+            <label>Role</label>
+            <select name="role" required>
+                <option value="employee">Employee</option>
+                <option value="manager">Manager</option>
+            </select>
+
+            <button class="btn btn-primary btn-submit" type="submit">
+                Login
+            </button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

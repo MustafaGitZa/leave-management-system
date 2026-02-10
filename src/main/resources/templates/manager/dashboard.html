@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="header">
+    <h1>Manager Dashboard</h1>
+    <a href="/logout" class="logout-btn">Logout</a>
+</header>
+
+<div class="container">
+
+    <div class="stats-grid">
+        <div class="stat-card stat-pending">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-info">
+                <h3>Pending Requests</h3>
+                <div class="stat-number">5</div>
+            </div>
+        </div>
+
+        <div class="stat-card stat-approved">
+            <div class="stat-icon">✔</div>
+            <div class="stat-info">
+                <h3>Approved</h3>
+                <div class="stat-number">12</div>
+            </div>
+        </div>
+    </div>
+
+    <a href="/manager/requests" class="btn btn-primary">View Requests</a>
+
+</div>
+
+</body>
+</html>
